@@ -1,0 +1,64 @@
+1. Total Records (Basic Check)
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| stats count
+
+2. Country-wise Exposure (VERY IMPORTANT)
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| stats count by country
+| sort -count
+
+3. High-Risk Ports Detection
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| search port=22 OR port=3389 OR port=23
+| stats count by country, port
+| sort -count
+
+4. Vulnerability Analysis (CVE)
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| where isnotnull(vulns)
+| stats count by vulns
+| sort -count
+
+5. Most Used Services / Products
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| stats count by product
+| sort -count
+
+6. ISP Analysis (Attack Surface Owners)
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| stats count by isp
+| sort -count
+
+7. Organization Analysis
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| stats count by org
+| sort -count
+
+8. High-Risk Countries Ranking
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| eval risk=case(
+    port==23, "High",
+    port==3389, "High",
+    port==22, "Medium",
+    true(), "Low"
+)
+| stats count by country, risk
+| sort -count
+
+10. Top 10 Most Vulnerable IPs
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| stats count by ip
+| sort -count
+| head 10
+
+11. Multi-factor Risk Analysis 
+source="war_shodan_data.csv" host="WIN-H682UAR3S28" sourcetype="csv"
+| eval risk_score = case(
+    port==23, 3,
+    port==3389, 3,
+    port==22, 2,
+    isnotnull(vulns), 3,
+    true(), 1
+)
+| stats sum(risk_score) as total_risk by country
+| sort -total_risk
