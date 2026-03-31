@@ -1,0 +1,75 @@
+Cyber Threat Intelligence & Attack Surface Analysis Using Shodan and Splunk
+1. Introduction
+
+In recent years, cyber warfare has become a critical component of geopolitical conflicts. Countries involved in war often experience increased cyber attacks such as DDoS, ransomware, and espionage. This project focuses on analyzing exposed systems and vulnerabilities in war-affected regions using Shodan and Splunk.
+
+2. Objectives
+To identify exposed internet-connected devices in conflict regions
+To analyze open ports and vulnerable services
+To visualize cyber risk patterns using Splunk dashboards
+To understand the relationship between geopolitical conflicts and cyber threats
+3. Tools & Technologies
+Shodan (Search engine for internet-connected devices)
+Splunk (SIEM tool for data analysis and visualization)
+Python (Data collection and preprocessing)
+CSV/JSON (Data storage)
+4. Methodology
+4.1 Data Collection
+
+Data was collected using Shodan API with queries such as:
+
+country
+country
+country
+country
+
+Each record includes:
+
+IP Address
+Country
+Port
+Organization
+ISP
+Product/Service
+Vulnerabilities (CVE)
+4.2 Data Processing
+Raw data stored in JSON format
+Converted into CSV using Python (Pandas)
+Cleaned and formatted for Splunk ingestion
+4.3 Data Analysis
+
+Data was uploaded into Splunk and analyzed using SPL queries:
+
+Country-wise exposure
+High-risk ports (22, 23, 3389)
+Vulnerability trends
+Service distribution
+5. Results & Findings
+5.1 Country-wise Exposure
+
+Countries involved in conflict showed higher numbers of exposed systems.
+
+5.2 High-Risk Ports
+Port 22 (SSH): Common for remote access attacks
+Port 3389 (RDP): Highly targeted for brute-force attacks
+Port 23 (Telnet): Insecure and vulnerable
+5.3 Vulnerability Analysis
+
+Several systems were found with known vulnerabilities (CVEs), indicating poor patch management.
+
+5.4 Key Insight
+
+War-affected regions have increased exposure of critical services, making them prime targets for cyber attacks.
+
+6. Conclusion
+
+This project demonstrates that cyber threats significantly increase during geopolitical conflicts. By using Shodan and Splunk, organizations can identify vulnerabilities and take proactive security measures.
+
+7. Future Scope
+Real-time monitoring using Shodan streaming API
+Integration with machine learning for attack prediction
+Automated alert systems in Splunk
+8. Ethical Considerations
+Only publicly available data was used
+No unauthorized access or exploitation was performed
+Followed ethical hacking guidelines
